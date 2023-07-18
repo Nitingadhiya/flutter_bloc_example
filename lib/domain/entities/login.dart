@@ -2,12 +2,12 @@ import 'package:equatable/equatable.dart';
 
 // completly independent
 
-//check API json response and create a Entities
+//check API json response and create a Entities base on api response.
 
-class LoginEntities extends Equatable {
+class LoginAuthTokenEntities extends Equatable {
   final String authToken;
 
-  const LoginEntities({required this.authToken}) : super();
+  const LoginAuthTokenEntities({required this.authToken}) : super();
 
   @override
   // TODO: implement props
