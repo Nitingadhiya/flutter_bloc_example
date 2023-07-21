@@ -3,6 +3,7 @@ import 'package:flutter_bloc_example/core/error/failures.dart';
 
 import '../entities/login.dart';
 
+//It's just contract
 abstract class LoginEmailPasswordRepository {
   //Here we declare methods
   // pass parameters mention "email, password"
