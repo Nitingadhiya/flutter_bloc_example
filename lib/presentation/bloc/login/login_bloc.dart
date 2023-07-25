@@ -68,16 +68,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // emit(LoginFailedState(passwordValidation: 'Please enter password', emailValidation: 'adss'));
     // emit(state.copyWith(passwordValidation: 'event.password'));
     // formKey.currentState!.save();
-    final authTokenOrFailure = await loginEmailPasswordUseCase(LoginParams(email: 'kapil_dummy@pinetco.com', password: 'PinetcoRocket'));
+    final authTokenOrFailure = await loginEmailPasswordUseCase(LoginParams(email: 'nitin_dummy@pinetco.com', password: 'PinetcoRocket'));
     print("authTokenOrFailure:-- $authTokenOrFailure");
     authTokenOrFailure.fold(
       (failure) {
         print("fail");
-        return emit(LoginFailedState(message: _mapFailureToMessage(failure)));
+        emit(LoginFailedState(message: _mapFailureToMessage(failure)));
       },
       (right) {
-        print("right:- ${right.authToken}");
-        return emit(LoginSuccess(authToken: right.authToken));
+        print("right11:- ${right.authToken}");
+        emit(LoginSuccess(authToken: right.authToken));
       },
     );
     // print("state.email, ${state.email} ${state.password}");

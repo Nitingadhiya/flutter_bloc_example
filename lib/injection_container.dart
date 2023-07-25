@@ -1,24 +1,30 @@
+import 'package:flutter_bloc_example/core/network/api.dart';
 import 'package:flutter_bloc_example/core/network/network_info.dart';
 import 'package:flutter_bloc_example/core/util/input_converter.dart';
-import 'package:flutter_bloc_example/data/data_sources/login_email_password_remote_data_source.dart';
+import 'package:flutter_bloc_example/data/data_sources/remote_data_source.dart';
 import 'package:flutter_bloc_example/data/data_sources/number_trivia_local_data_sources.dart';
 import 'package:flutter_bloc_example/data/data_sources/number_trivia_remote_data_source.dart';
+import 'package:flutter_bloc_example/data/repositories/feed_impl.dart';
 import 'package:flutter_bloc_example/data/repositories/login_email_password_impl.dart';
 import 'package:flutter_bloc_example/data/repositories/number_trivia_repository_impl.dart';
+import 'package:flutter_bloc_example/domain/respositories/feed_repositories.dart';
 import 'package:flutter_bloc_example/domain/respositories/login_email_password_repositories.dart';
 import 'package:flutter_bloc_example/domain/respositories/number_trivia_repositories.dart';
+import 'package:flutter_bloc_example/domain/usecases/feed_usecase.dart';
 import 'package:flutter_bloc_example/domain/usecases/get_concreteNumberTrivia.dart';
 import 'package:flutter_bloc_example/domain/usecases/get_ramdomNumberTrivia.dart';
 import 'package:flutter_bloc_example/domain/usecases/login_email_password_usecase.dart';
 import 'package:flutter_bloc_example/domain/usecases/login_phone_password_usecase.dart';
+import 'package:flutter_bloc_example/presentation/bloc/home/home_bloc.dart';
 import 'package:flutter_bloc_example/presentation/bloc/login/login_bloc.dart';
 import 'package:flutter_bloc_example/presentation/bloc/number_trivia/number_trivia_bloc.dart';
+import 'package:flutter_bloc_example/presentation/bloc/splash/splash_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import 'data/data_sources/login_email_password_local_data_source.dart';
+import 'data/data_sources/local_data_source.dart';
 
 final GetIt locator = GetIt.instance;
 //
@@ -41,6 +47,8 @@ Future<void> setup() async {
     ),
   );
   locator.registerFactory(() => LoginBloc(loginEmailPasswordUseCase: locator(), loginPhonePasswordUseCase: locator()));
+  locator.registerFactory(() => SplashBloc());
+  locator.registerFactory(() => HomeBloc(feedUseCase: locator()));
 
   //Use case
   locator.registerLazySingleton(() => GetConcreteNumberTrivia(locator()));
@@ -48,6 +56,8 @@ Future<void> setup() async {
 
   locator.registerLazySingleton(() => LoginEmailPasswordUseCase(locator()));
   locator.registerLazySingleton(() => LoginPhonePasswordUseCase(locator()));
+
+  locator.registerLazySingleton(() => FeedUseCase(locator()));
 
   //Repositories
   locator.registerLazySingleton<NumberTriviaRepository>(
@@ -66,6 +76,14 @@ Future<void> setup() async {
     ),
   );
 
+  locator.registerLazySingleton<FeedRepository>(
+    () => FeedRepositoryImpl(
+      remoteDataSource: locator(),
+      localDataSource: locator(),
+      networkInfo: locator(),
+    ),
+  );
+
   // Data Sources
   locator.registerLazySingleton<NumberTriviaRemoteDataSource>(
     () => NumberTriviaRemoteDataSourceImpl(
@@ -78,13 +96,13 @@ Future<void> setup() async {
     ),
   );
 
-  locator.registerLazySingleton<LoginEmailPasswordRemoteDataSource>(
-    () => LoginEmailPasswordRemoteDataSourceImpl(
-      client: locator(),
+  locator.registerLazySingleton<RemoteDataSource>(
+    () => RemoteDataSourceImpl(
+      apiRequest: locator(),
     ),
   );
-  locator.registerLazySingleton<LoginEmailPasswordLocalDataSource>(
-    () => LoginEmailPasswordLocalDataSourceImpl(
+  locator.registerLazySingleton<LocalDataSource>(
+    () => LocalDataSourceImpl(
       sharedPreferences: locator(),
     ),
   );
@@ -92,4 +110,5 @@ Future<void> setup() async {
   // core
   locator.registerLazySingleton(() => InputConverter());
   locator.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(locator()));
+  locator.registerLazySingleton<ApiRequest>(() => ApiRequest());
 }

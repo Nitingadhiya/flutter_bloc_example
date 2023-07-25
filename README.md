@@ -148,18 +148,15 @@ Events => Bloc => State
   widget which will do something useful with that state and the data contained inside the state and
   they will display something nice to the user on the screen.
 
--
-
 - step71 = Now start working on bloc
 - step72 = do not put any logic inside classes where it doesn't belong and that goes most definitely
   for the ui widget and also for something like events follow the single responsibility principle
-  and
-  you'll be good to go and in flutter this is absolutely necessary because as you know ui is written
-  in
-  the same language as the logic is written in the dart so it's really easy to put logic throughout
+  and you'll be good to go and in flutter this is absolutely necessary because as you know ui is
+  written
+  in the same language as the logic is written in the dart so it's really easy to put logic
+  throughout
   your ui widgets but by doing that you get rid of any benefits which the clean architecture and
-  test
-  driven developments.
+  test driven developments.
 
 - step73 = convert string to int - create a "input converter dart file" inside utils folder
 - step74 = create InputConverter class
