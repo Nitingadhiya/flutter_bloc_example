@@ -1,9 +1,9 @@
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_bloc_example/data/models/feed_model.dart';
-// import 'package:flutter_bloc_example/domain/entities/home.dart';
+// import 'package:flutter_bloc_example/domain/entities/feed.dart';
 // import 'package:flutter_bloc_example/injection_container.dart';
-// import 'package:flutter_bloc_example/presentation/bloc/home/home_bloc.dart';
+// import 'package:flutter_bloc_example/presentation/bloc/home/feed_bloc.dart';
 // import 'package:go_router/go_router.dart';
 // import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 // import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';

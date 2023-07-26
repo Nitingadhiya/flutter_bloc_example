@@ -15,7 +15,7 @@ import 'package:flutter_bloc_example/domain/usecases/get_concreteNumberTrivia.da
 import 'package:flutter_bloc_example/domain/usecases/get_ramdomNumberTrivia.dart';
 import 'package:flutter_bloc_example/domain/usecases/login_email_password_usecase.dart';
 import 'package:flutter_bloc_example/domain/usecases/login_phone_password_usecase.dart';
-import 'package:flutter_bloc_example/presentation/bloc/home/home_bloc.dart';
+import 'package:flutter_bloc_example/presentation/bloc/feed/feed_bloc.dart';
 import 'package:flutter_bloc_example/presentation/bloc/login/login_bloc.dart';
 import 'package:flutter_bloc_example/presentation/bloc/number_trivia/number_trivia_bloc.dart';
 import 'package:flutter_bloc_example/presentation/bloc/splash/splash_bloc.dart';
@@ -48,7 +48,7 @@ Future<void> setup() async {
   );
   locator.registerFactory(() => LoginBloc(loginEmailPasswordUseCase: locator(), loginPhonePasswordUseCase: locator()));
   locator.registerFactory(() => SplashBloc());
-  locator.registerFactory(() => HomeBloc(feedUseCase: locator()));
+  locator.registerFactory(() => FeedBloc(feedUseCase: locator()));
 
   //Use case
   locator.registerLazySingleton(() => GetConcreteNumberTrivia(locator()));

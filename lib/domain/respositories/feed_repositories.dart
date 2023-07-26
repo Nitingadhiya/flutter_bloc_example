@@ -2,7 +2,7 @@
 import 'package:dartz/dartz.dart';
 
 import '../../core/error/failures.dart';
-import '../entities/home.dart';
+import '../entities/feed.dart';
 import '../usecases/feed_usecase.dart';
 
 abstract class FeedRepository {

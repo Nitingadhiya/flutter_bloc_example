@@ -1,4 +1,4 @@
-import 'package:flutter_bloc_example/domain/entities/home.dart';
+import 'package:flutter_bloc_example/domain/entities/feed.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'post_file_model.g.dart';

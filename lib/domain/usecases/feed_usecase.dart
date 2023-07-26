@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc_example/domain/entities/home.dart';
+import 'package:flutter_bloc_example/domain/entities/feed.dart';
 import '../../core/error/failures.dart';
 import '../../core/usecases/usecases.dart';
 import '../respositories/feed_repositories.dart';

@@ -4,7 +4,7 @@ import 'package:flutter_bloc_example/core/error/failures.dart';
 import 'package:flutter_bloc_example/core/network/network_info.dart';
 import 'package:flutter_bloc_example/data/data_sources/remote_data_source.dart';
 import 'package:flutter_bloc_example/data/models/login_auth_token_model.dart';
-import 'package:flutter_bloc_example/domain/entities/home.dart';
+import 'package:flutter_bloc_example/domain/entities/feed.dart';
 import 'package:flutter_bloc_example/domain/entities/login.dart';
 import 'package:flutter_bloc_example/domain/usecases/get_concreteNumberTrivia.dart';
 

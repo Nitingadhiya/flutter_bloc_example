@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc_example/data/models/feed_model.dart';
-import 'package:flutter_bloc_example/domain/entities/home.dart';
+import 'package:flutter_bloc_example/domain/entities/feed.dart';
 import 'package:flutter_bloc_example/domain/usecases/feed_usecase.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:meta/meta.dart';

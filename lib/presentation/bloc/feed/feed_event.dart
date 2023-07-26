@@ -1,14 +1,14 @@
-part of 'home_bloc.dart';
+part of 'feed_bloc.dart';
 
 @immutable
-abstract class HomeEvent extends Equatable {}
+abstract class FeedEvent extends Equatable {}
 
-class InitialHomeEvent extends HomeEvent {
+class InitialHomeEvent extends FeedEvent {
   @override
   List<Object?> get props => [];
 }
 
-class FetchData extends HomeEvent {
+class FetchData extends FeedEvent {
   final int? pageKey;
 
   FetchData(this.pageKey);

@@ -3,11 +3,13 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc_example/core/network/api.dart';
+import 'package:flutter_bloc_example/data/data_sources/api_methods.dart';
 import 'package:flutter_bloc_example/data/models/feed_model.dart';
 import 'package:flutter_bloc_example/data/models/login_auth_token_model.dart';
-import 'package:flutter_bloc_example/domain/entities/home.dart';
+import 'package:flutter_bloc_example/domain/entities/feed.dart';
 import 'package:flutter_bloc_example/domain/usecases/get_concreteNumberTrivia.dart';
 
+import '../../core/enums/common.dart';
 import '../../core/error/exceptions.dart';
 import '../../domain/usecases/feed_usecase.dart';
 
@@ -59,10 +61,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<List<FeedModel>> getFeedDataFromApi(params) async {
-    String url = 'v4/posts';
-    var type = 'get';
     // Here we convert class to json object for pass data in the request
-    final response = await apiRequest.networkRequest(url, params.toJson(), type);
+    final response = await apiRequest.networkRequest(ApiMethods.posts, params.toJson(), ApiMethodTypes.get);
     if (response.statusCode == 200) {
       try {
         final postList = List<FeedModel>.from(response.data['data'].map((json) => FeedModel.fromJson(json)));

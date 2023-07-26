@@ -1,7 +1,7 @@
 import 'package:flutter_bloc_example/data/models/post_file_model.dart';
 import 'package:flutter_bloc_example/domain/entities/login.dart';
 import 'package:json_annotation/json_annotation.dart';
-import '../../domain/entities/home.dart';
+import '../../domain/entities/feed.dart';
 
 part 'feed_model.g.dart';
 

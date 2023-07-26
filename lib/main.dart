@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_example/presentation/bloc/language/localization_bloc.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:go_router/go_router.dart';
 import 'injection_container.dart';
-import 'presentation/pages/home/home_page.dart';
+import 'presentation/pages/feed/feed_page.dart';
 import 'presentation/pages/login/login_page.dart';
 import 'presentation/pages/number_trivia_page.dart';
 import 'presentation/pages/splash/splash_page.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setup();
   // Bloc.observer = SimpleBlocObserver();
-  runApp(MyApp());
+  runApp(BlocProvider(
+    create: (context) => LanguageBloc(),
+    child: MyApp(),
+  ));
 }
 
 class SimpleBlocObserver extends BlocObserver {
@@ -56,7 +62,7 @@ class AppRouter {
       GoRoute(
         path: '/home',
         name: 'home',
-        builder: (context, state) => const HomePage(),
+        builder: (context, state) => const FeedPage(),
       ),
       GoRoute(
         path: '/login',
@@ -74,10 +80,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: appRoute,
-      title: 'Number Trivia',
-      theme: ThemeData(primaryColor: Colors.green.shade800, hintColor: Colors.green.shade600),
+    return BlocBuilder<LanguageBloc, Locale>(
+      builder: (BuildContext context, Locale state) {
+        return MaterialApp.router(
+          routerConfig: appRoute,
+          title: 'Number Trivia',
+          theme: ThemeData(primaryColor: Colors.green.shade800, hintColor: Colors.green.shade600),
+          localizationsDelegates: [
+            FlutterI18nDelegate(
+              translationLoader: FileTranslationLoader(
+                useCountryCode: false,
+                basePath: 'assets/flutter_i18n',
+                forcedLocale: state,
+              ),
+            ),
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+        );
+      },
     );
   }
 }

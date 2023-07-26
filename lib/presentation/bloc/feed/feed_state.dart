@@ -1,26 +1,26 @@
-part of 'home_bloc.dart';
+part of 'feed_bloc.dart';
 
 @immutable
-abstract class HomeState extends Equatable {}
+abstract class FeedState extends Equatable {}
 
-class HomeInitial extends HomeState {
+class FeedInitial extends FeedState {
   @override
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
 }
 
-class HomeLoaded extends HomeState {
+class FeedLoaded extends FeedState {
   List<FeedEntities> tempData = [];
   int pageKey = 0;
 
-  HomeLoaded(this.tempData, this.pageKey);
+  FeedLoaded(this.tempData, this.pageKey);
 
   @override
   // TODO: implement props
   List<Object?> get props => [tempData, pageKey];
 }
 
-class PostFailedToLoad extends HomeState {
+class PostFailedToLoad extends FeedState {
   String message;
 
   PostFailedToLoad({required this.message});
@@ -30,7 +30,7 @@ class PostFailedToLoad extends HomeState {
   List<Object?> get props => [message];
 }
 
-class PostException extends HomeState {
+class PostException extends FeedState {
   Object? error;
 
   PostException({required this.error});
