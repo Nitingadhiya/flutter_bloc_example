@@ -4,14 +4,9 @@ import 'package:flutter_bloc_example/core/theme/color_schemes.dart';
 import 'package:flutter_bloc_example/presentation/bloc/language/localization_bloc.dart';
 import 'package:flutter_bloc_example/presentation/bloc/theme/theme_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:go_router/go_router.dart';
 import 'core/enums/theme.dart';
+import 'core/route/route.dart';
 import 'injection_container.dart';
-import 'presentation/pages/feed/feed_page.dart';
-import 'presentation/pages/login/login_page.dart';
-import 'presentation/pages/number_trivia_page.dart';
-import 'presentation/pages/second/second.dart';
-import 'presentation/pages/splash/splash_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
@@ -55,38 +50,6 @@ class SimpleBlocObserver extends BlocObserver {
     super.onClose(bloc);
     print('onClose -- ${bloc.runtimeType}');
   }
-}
-
-class AppRouter {
-  final router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        name: 'index',
-        builder: (context, state) => const SplashPage(),
-      ),
-      GoRoute(
-        path: '/numberTrivia',
-        name: 'numberTrivia',
-        builder: (context, state) => const NumberTriviaPage(),
-      ),
-      GoRoute(
-        path: '/home',
-        name: 'home',
-        builder: (context, state) => const FeedPage(),
-      ),
-      GoRoute(
-        path: '/second',
-        name: 'second',
-        builder: (context, state) => const SecondPage(),
-      ),
-      GoRoute(
-        path: '/login',
-        name: 'login',
-        builder: (context, state) => const LoginPage(),
-      ),
-    ],
-  );
 }
 
 @immutable
