@@ -89,10 +89,11 @@ class AppRouter {
   );
 }
 
+@immutable
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  var appRoute = AppRouter().router;
+  final appRoute = AppRouter().router;
 
   @override
   Widget build(BuildContext context) {
@@ -100,17 +101,12 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context, Locale state) {
         return BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, tState) {
-            ThemeMode val = AppThemeMode.light.value;
-            if (tState is ThemeChanges) {
-              val = tState.selectedTheme.value;
-              print(tState.selectedTheme.value.runtimeType);
-            }
             return MaterialApp.router(
               routerConfig: appRoute,
               title: 'Number Trivia',
               theme: ThemeData(colorScheme: lightColorScheme),
               darkTheme: ThemeData(colorScheme: darkColorScheme),
-              themeMode: val,
+              themeMode: tState is ThemeChanges ? tState.selectedTheme.value : AppThemeMode.light.value,
               localizationsDelegates: [
                 FlutterI18nDelegate(
                   translationLoader: FileTranslationLoader(
