@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_example/core/theme/color_schemes.dart';
 import 'package:flutter_bloc_example/presentation/bloc/language/localization_bloc.dart';
+import 'package:flutter_bloc_example/presentation/bloc/theme/theme_bloc.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:go_router/go_router.dart';
+import 'core/enums/theme.dart';
 import 'injection_container.dart';
 import 'presentation/pages/feed/feed_page.dart';
 import 'presentation/pages/login/login_page.dart';
 import 'presentation/pages/number_trivia_page.dart';
+import 'presentation/pages/second/second.dart';
 import 'presentation/pages/splash/splash_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -14,8 +18,15 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setup();
   // Bloc.observer = SimpleBlocObserver();
-  runApp(BlocProvider(
-    create: (context) => LanguageBloc(),
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider<ThemeBloc>(
+        create: (context) => ThemeBloc(),
+      ),
+      BlocProvider<LanguageBloc>(
+        create: (context) => LanguageBloc(),
+      ),
+    ],
     child: MyApp(),
   ));
 }
@@ -65,6 +76,11 @@ class AppRouter {
         builder: (context, state) => const FeedPage(),
       ),
       GoRoute(
+        path: '/second',
+        name: 'second',
+        builder: (context, state) => const SecondPage(),
+      ),
+      GoRoute(
         path: '/login',
         name: 'login',
         builder: (context, state) => const LoginPage(),
@@ -82,21 +98,32 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LanguageBloc, Locale>(
       builder: (BuildContext context, Locale state) {
-        return MaterialApp.router(
-          routerConfig: appRoute,
-          title: 'Number Trivia',
-          theme: ThemeData(primaryColor: Colors.green.shade800, hintColor: Colors.green.shade600),
-          localizationsDelegates: [
-            FlutterI18nDelegate(
-              translationLoader: FileTranslationLoader(
-                useCountryCode: false,
-                basePath: 'assets/flutter_i18n',
-                forcedLocale: state,
-              ),
-            ),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate
-          ],
+        return BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, tState) {
+            ThemeMode val = AppThemeMode.light.value;
+            if (tState is ThemeChanges) {
+              val = tState.selectedTheme.value;
+              print(tState.selectedTheme.value.runtimeType);
+            }
+            return MaterialApp.router(
+              routerConfig: appRoute,
+              title: 'Number Trivia',
+              theme: ThemeData(colorScheme: lightColorScheme),
+              darkTheme: ThemeData(colorScheme: darkColorScheme),
+              themeMode: val,
+              localizationsDelegates: [
+                FlutterI18nDelegate(
+                  translationLoader: FileTranslationLoader(
+                    useCountryCode: false,
+                    basePath: 'assets/flutter_i18n',
+                    forcedLocale: state,
+                  ),
+                ),
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate
+              ],
+            );
+          },
         );
       },
     );

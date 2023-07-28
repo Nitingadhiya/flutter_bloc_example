@@ -61,59 +61,64 @@ class FeedView extends StatelessWidget {
       ),
       body: Center(
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          //
-          Text("helloWorld".xTr(context)),
-          Text(FlutterI18n.translate(context, "helloWorld", fallbackKey: "button.label.clickMe")),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              //
+              Text("helloWorld".xTr(context)),
+              Text(FlutterI18n.translate(context, "helloWorld", fallbackKey: "button.label.clickMe")),
 
-          //
-          Localizations.override(
-            context: context,
-            locale: Language.EN.xGetLocale,
-            child: Builder(
-              builder: (BuildContext context) {
-                return Text(
-                  context.xTr('helloWorld'),
-                );
-              },
-            ),
-          ),
+              //
+              Localizations.override(
+                context: context,
+                locale: Language.EN.xGetLocale,
+                child: Builder(
+                  builder: (BuildContext context) {
+                    return Text(
+                      context.xTr('helloWorld'),
+                    );
+                  },
+                ),
+              ),
 
-          //
-          Text(
-            context.xTr(
-              'greeting',
-              parameters: {
-                'hello': 'Hello',
-                'world': 'Hello',
-              },
-            ),
-          ),
+              //
+              Text(
+                context.xTr(
+                  'greeting',
+                  parameters: {
+                    'hello': 'Hello',
+                    'world': 'Hello',
+                  },
+                ),
+              ),
 
-          //
-          Text(
-            context.xTr(
-              'numberOfDataPoints',
-              parameters: {
-                'value': 1200000.toString(),
-              },
-            ),
-          ),
+              //
+              Text(
+                context.xTr(
+                  'numberOfDataPoints',
+                  parameters: {
+                    'value': 1200000.toString(),
+                  },
+                ),
+              ),
 
-          //
-          Text(
-            context.xTr(
-              'helloWorldOn',
-              parameters: {
-                'date': DateTime.utc(1997, 04, 01).toString(),
-              },
-            ),
-          ),
-        ],
-      )
+              //
+              Text(
+                context.xTr(
+                  'helloWorldOn',
+                  parameters: {
+                    'date': DateTime.utc(1997, 04, 01).toString(),
+                  },
+                ),
+              ),
 
-          /*
+              TextButton(onPressed: () {
+                context.pushNamed('second');
+              }, child: Text('Second page')),
+
+            ],
+          )
+
+        /*
       BlocConsumer<FeedBloc, FeedState>(
         listener: (context, state) {
           if (State is PostFailedToLoad) {
@@ -152,7 +157,7 @@ class FeedView extends StatelessWidget {
           );
         },
       ),*/
-          ),
+      ),
     );
   }
 }
